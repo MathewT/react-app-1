@@ -23,8 +23,8 @@ class App extends Component{
     console.log(this.state);
   }; 
   
-  sayHello = () => {
-    console.log(`...saying hello`);
+  sayHello = (name) => {
+    console.log(`${name}, saying hello`);
   };
 
   render() {
@@ -34,15 +34,17 @@ class App extends Component{
         <button onClick={this.switchNameHandler}>Switch Name</button>
         <Person 
           name={this.state.persons[0].name} 
-          age={this.state.persons[0].age}>My hobby is computer programming.
+          age={this.state.persons[0].age}
+          click={this.sayHello.bind(this, this.state.persons[0].name)}>My hobby is computer programming.
         </Person>
         <Person 
           name={this.state.persons[1].name} 
-          age={this.state.persons[1].age}/>
+          age={this.state.persons[1].age}
+          click={this.sayHello.bind(this, this.state.persons[1].name)}/>
         <Person 
           name={this.state.persons[2].name} 
           age={this.state.persons[2].age}
-          click={this.sayHello}/>
+          click={this.sayHello.bind(this, this.state.persons[2].name)}/>
       </div>
     );
   }
