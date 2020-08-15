@@ -10,7 +10,8 @@ class App extends Component{
       {name: "Joe", age: 56}
     ],
     otherState: "some other state data",
-    switchedNameCount: 0
+    switchedNameCount: 0,
+    showPersonsToggle: false
   };
   
   pauseComp = (millis) => 
@@ -46,26 +47,42 @@ class App extends Component{
       ]
     });
   };
+  
+  showPersons = () => {
+    const doesShow = this.state.showPersonsToggle;
+    console.log(`showPersons called.`);
+    this.setState(
+      {
+        showPersonsToggle: !doesShow
+      }
+    )
+  }; 
 
   render() {
     return (
       <div className="App">
         <h1>hello, world {this.state.switchedNameCount}</h1>
-        <button onClick={this.switchNameButtonHandler}>Switch Name</button>
-        <Person 
-          name={this.state.persons[0].name} 
-          age={this.state.persons[0].age}
-          click={this.sayHelloButtonHandler.bind(this, this.state.persons[0].name)}
-          changeHandler={this.nameChangedHandler}>My hobby is computer programming.
-        </Person>
-        <Person 
-          name={this.state.persons[1].name} 
-          age={this.state.persons[1].age}
-          click={this.sayHelloButtonHandler.bind(this, this.state.persons[1].name)}/>
-        <Person 
-          name={this.state.persons[2].name} 
-          age={this.state.persons[2].age}
-          click={this.sayHelloButtonHandler.bind(this, this.state.persons[2].name)}/>
+        {/* <button onClick={this.switchNameButtonHandler}>Switch Name</button> */}
+        <button onClick={this.showPersons}>Show Persons</button>
+        {
+          this.state.showPersonsToggle === true ?
+          <div>
+            <Person 
+              name={this.state.persons[0].name} 
+              age={this.state.persons[0].age}
+              click={this.sayHelloButtonHandler.bind(this, this.state.persons[0].name)}
+              changeHandler={this.nameChangedHandler}>My hobby is computer programming.
+            </Person>
+            <Person 
+              name={this.state.persons[1].name} 
+              age={this.state.persons[1].age}
+              click={this.sayHelloButtonHandler.bind(this, this.state.persons[1].name)}/>
+            <Person 
+              name={this.state.persons[2].name} 
+              age={this.state.persons[2].age}
+              click={this.sayHelloButtonHandler.bind(this, this.state.persons[2].name)}/>
+            </div> : null
+        }
       </div>
     );
   }
